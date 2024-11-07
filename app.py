@@ -9,16 +9,13 @@ import gradio as gr
 
 
 # text summarization
-get_completion = pipeline("summarization", model = 'sshleifer/distilbart-cnn-12-6')
+get_completion_summarizer = pipeline("summarization", model = 'sshleifer/distilbart-cnn-12-6')
 
 def summarize(input):
-    output = get_completion(input)
+    output = get_completion_summarizer(input)
     return output[0]['summary_text']
 
     
-
-
-
 # NER 
 def merge_tokens(tokens):
     merged_tokens = []
@@ -36,12 +33,35 @@ def merge_tokens(tokens):
     return merged_tokens
 
 
-get_completion = pipeline("ner", model="dslim/bert-base-NER")
+get_completion_ner = pipeline("ner", model="dslim/bert-base-NER")
 
 def ner(input):
-    output = get_completion(input)
+    output = get_completion_ner(input)
     merged_tokens = merge_tokens(output)
     return {"text": input, "entities": merged_tokens}
+
+
+
+# image captioning
+get_completion_captioning = pipeline("image-to-text")
+
+def image_to_base64_str(pil_image):
+    byte_arr = io.BytesIO()
+    pil_image.save(byte_arr, format='PNG')
+    byte_arr = byte_arr.getvalue()
+    return str(base64.b64encode(byte_arr).decode('utf-8'))
+
+def captioner(image):
+    base64_image = image_to_base64_str(image)
+    result = get_completion_captioning(base64_image)
+    return result[0]['generated_text']
+
+
+
+
+
+
+
 
 
 # build tabs in interface
@@ -62,8 +82,17 @@ io2 = gr.Interface(fn=ner,
                     examples=["My name is Andrew, I'm building DeeplearningAI and I live in California", "My name is Poli, I live in Vienna and work at HuggingFace"])
 
 
+io3 = gr.Interface(fn=captioner,
+                    inputs=[gr.Image(label="Upload image", type="pil")],
+                    outputs=[gr.Textbox(label="Caption")],
+                    title="Image Captioning with BLIP",
+                    description="Caption any image using the BLIP model",
+                    allow_flagging="never",
+                   )
+
+
 gr.TabbedInterface(
-    [io1, io2], ["Text Summarization", "NER"]
+    [io1, io2, io3], ["Text Summarization", "Named Entity Recognition", "Image Captioning"]
 ).launch()
 
 demo.launch()
