@@ -21,9 +21,4 @@ demo = gr.Interface(fn=summarize,
                 title="Text summarization with distilbart-cnn",
                 description="Summarize any text using the `shleifer/distilbart-cnn-12-6` model under the hood!"
                 )
-demo.launch(share=True)
-
-
-
-if __name__ == "__main__":
-    main()
+demo.launch()
