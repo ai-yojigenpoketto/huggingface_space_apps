@@ -15,10 +15,22 @@ def summarize(input):
     return output[0]['summary_text']
 
     
-demo = gr.Interface(fn=summarize, 
+io1 = gr.Interface(fn=summarize, 
                 inputs=[gr.Textbox(label="Text to summarize", lines=6)],
                 outputs=[gr.Textbox(label="Result", lines=3)],
                 title="Text summarization with distilbart-cnn",
                 description="Summarize any text using the `shleifer/distilbart-cnn-12-6` model under the hood!"
                 )
+
+io2 = gr.Interface(fn=summarize, 
+                inputs=[gr.Textbox(label="Text to summarize", lines=6)],
+                outputs=[gr.Textbox(label="Result", lines=3)],
+                title="Text summarization with distilbart-cnn",
+                description="Summarize any text using the `shleifer/distilbart-cnn-12-6` model under the hood!"
+                )
+
+gr.TabbedInterface(
+    [io1, io2], ["test1", "test2"]
+).launch()
+
 demo.launch()
