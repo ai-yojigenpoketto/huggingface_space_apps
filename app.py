@@ -5,7 +5,7 @@ import gradio as gr
 
 # Load environment variables. Assumes that project contains .env file with API keys
 load_dotenv()
-hf_api_key = os.environ['HF_TOKEN']
+# hf_api_key = os.environ['HF_TOKEN']
 
 get_completion = pipeline("summarization", model = 'sshleifer/distilbart-cnn-12-6')
 
