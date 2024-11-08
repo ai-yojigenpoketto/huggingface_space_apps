@@ -1,11 +1,9 @@
 import os
-#from dotenv import load_dotenv
+import io
+import base64 
+from diffusers import DiffusionPipeline
 from transformers import pipeline
 import gradio as gr
-
-# Load environment variables. Assumes that project contains .env file with API keys
-#load_dotenv()
-# hf_api_key = os.environ['HF_TOKEN']
 
 
 # text summarization
@@ -58,12 +56,6 @@ def captioner(image):
 
 
 
-
-
-
-
-
-
 # build tabs in interface
 io1 = gr.Interface(fn=summarize, 
                 inputs=[gr.Textbox(label="Text to summarize", lines=6)],
@@ -95,4 +87,4 @@ gr.TabbedInterface(
     [io1, io2, io3], ["Text Summarization", "Named Entity Recognition", "Image Captioning"]
 ).launch()
 
-demo.launch()
+

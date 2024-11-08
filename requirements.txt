@@ -9,6 +9,7 @@ matplotlib
 gensim
 torch
 transformers
+diffusers
 accelerate
 sentencepiece
 bitsandbytes
