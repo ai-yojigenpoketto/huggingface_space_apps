@@ -9,7 +9,7 @@ app_file: app.py
 pinned: false
 ---
 
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+Please try out the app at https://huggingface.co/spaces/ai-dufflebags/toy_apps
 
 
 ## Features Created in the App
@@ -27,6 +27,8 @@ In this app, I developed the following features, each presented on separate tabs
 
 ## Credit
 This app is built based on course Building Generative AI Applications with Gradio @ DeepLearning.ai
+
+if you are interested in learning step by step in jupyter notebooks, please refer to https://github.com/ai-yojigenpoketto/GenAI_Apps_w_Gradio
 
 
 
